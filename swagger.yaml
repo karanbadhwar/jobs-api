@@ -1,0 +1,239 @@
+openapi: 3.0.0
+info:
+  title: Jobs API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://jobs-api-szvm.onrender.com/api/v1
+    variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register user
+      operationId: Registeruser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RegisteruserRequest"
+                - example:
+                    name: karan badhwar
+                    email: KB@gmail.com
+                    password: secret
+            example:
+              name: karan badhwar
+              email: KB@gmail.com
+              password: secret
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/LoginUserRequest"
+                - example:
+                    email: karan@gmail.com
+                    password: secret
+            example:
+              email: karan@gmail.com
+              password: secret
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    post:
+      tags:
+        - jobs
+      summary: Create Jobs
+      operationId: CreateJobs
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateJobsRequest"
+                - example:
+                    company: netflix
+                    position: Owner
+            example:
+              company: netflix
+              position: Owner
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    get:
+      tags:
+        - jobs
+      summary: Get All Jobs
+      operationId: GetAllJobs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The jobs ID
+    get:
+      tags:
+        - jobs
+      summary: Get A Job
+      operationId: GetAJob
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - jobs
+      summary: Update Job
+      operationId: UpdateJob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateJobRequest"
+                - example:
+                    company: X
+                    position: hacker
+            example:
+              company: X
+              position: hacker
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - jobs
+      summary: Delete
+      operationId: Delete
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    RegisteruserRequest:
+      title: RegisteruserRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: karan badhwar
+        email: KB@gmail.com
+        password: secret
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: karan@gmail.com
+        password: secret
+    CreateJobsRequest:
+      title: CreateJobsRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: netflix
+        position: Owner
+    UpdateJobRequest:
+      title: UpdateJobRequest
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: X
+        position: hacker
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: jobs
+    description: ""
